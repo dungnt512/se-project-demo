@@ -1,12 +1,12 @@
 package com.example.projectdemo.config;
 
+import com.example.projectdemo.model.User;
+import com.example.projectdemo.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
-import com.example.projectdemo.repository.UserRepository;
-import com.example.projectdemo.model.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.core.userdetails.User.UserBuilder;
@@ -23,14 +23,14 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/register", "/login", "/css/**").permitAll()
+                        .requestMatchers("/register", "/login", "/css/**", "/assets/**").permitAll()
                         // URL admin chỉ cho admin (lưu ý: khi dùng hasRole thì Spring Security sẽ tự thêm tiền tố ROLE_)
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/home", true)
+                        .defaultSuccessUrl("/index", true)
                         .permitAll()
                 )
                 .logout(logout -> logout

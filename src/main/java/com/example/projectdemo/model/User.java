@@ -1,6 +1,9 @@
 package com.example.projectdemo.model;
 
+import com.example.projectdemo.validator.ValidPassword;
 import jakarta.persistence.*;
+
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "users")
@@ -9,10 +12,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     @Column(nullable = false, unique = true)
     private String username;
 
+    @NotNull
+    @ValidPassword
     private String password;
+
     private String name;
     private String roomNumber;
     private String phone;
