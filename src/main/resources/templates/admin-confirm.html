@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Xác nhận tài khoản</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+</head>
+<body>
+<h2>Danh sách tài khoản cần xác nhận</h2>
+<table>
+    <tr>
+        <th>Tên người dùng</th>
+        <th>Email</th>
+        <th>Hành động</th>
+    </tr>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.email}"></td>
+        <td>
+            <form th:action="@{'/admin/confirm/' + ${user.id}}" method="post">
+                <button type="submit">Xác nhận</button>
+            </form>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
